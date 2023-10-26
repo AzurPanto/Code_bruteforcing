@@ -1,5 +1,7 @@
 import random
 import tkinter as tk
+#from tkinter import ttk
+import ttkbootstrap as ttk
 import time
 from pynput.keyboard import Key, Controller
 from pynput import keyboard
@@ -22,8 +24,6 @@ enter_variable = False
 def enter_clicked():
     global enter_variable
     enter_variable = True
-    window.destroy()
-
 
 # Function to set x to False when "No Enter" button is clicked
 
@@ -31,31 +31,38 @@ def enter_clicked():
 def no_enter_clicked():
     global enter_variable
     enter_variable = False
-    window.destroy()
-
 
 # Create the main window
-window = tk.Tk()
+window = ttk.Window(themename= "journal")
 window.title("Enter or No Enter")
-window.geometry("300x100")
+window.geometry("300x300")
 
 # Create the text on top
-text = tk.Label(window, text="Press Enter after the code or not")
+text = ttk.Label(master = window, text="Press Enter after the code or not", font= "Calibri 16")
 text.pack()
 
+# Create the buttons frame
+button_frame = ttk.Frame(master= window)
+button_frame.pack(pady= 10)
+
 # Create the "Enter" button
-enter_button = tk.Button(window, text="Enter", command=enter_clicked)
-enter_button.pack()
+enter_button = ttk.Button(master = button_frame, text="Enter", command=enter_clicked)
+enter_button.pack(side= "left", padx = 10)
 
-# Create the "No Enter" button04664022
-no_enter_button = tk.Button(window, text="No Enter", command=no_enter_clicked)
-no_enter_button.pack()
-
-# Start the tkinter event loop
-window.mainloop()
+# Create the "No Enter" button
+no_enter_button = ttk.Button(master = button_frame, text="No Enter", command=no_enter_clicked)
+no_enter_button.pack(side = "left")
 
 #Define digits
 digits = 4
+
+#create the digits frame
+digits_frame = ttk.Frame(master= window)
+digits_frame.pack(pady= 20)
+
+#Create text on top
+text = ttk.Label(master = digits_frame, text= "How many digits ?", font= "Calibri 16")
+text.pack()
 
 #Function to set x to 3 if 3 is pressed
 
@@ -63,7 +70,6 @@ digits = 4
 def digit_3_pressed():
     global digits
     digits = 3
-    secondary.destroy()
 
 #Function to set x to 4 if 4 is pressed
 
@@ -71,7 +77,6 @@ def digit_3_pressed():
 def digit_4_pressed():
     global digits
     digits = 4
-    secondary.destroy()
 
 #Function to set x to 4 if 4 is pressed
 
@@ -79,29 +84,31 @@ def digit_4_pressed():
 def digit_5_pressed():
     global digits
     digits = 5
-    secondary.destroy()
 
-#Create the secondary window
-secondary = tk.Tk()
-secondary.title("Digits")
-secondary.geometry("300x100")
+#Function to close window
 
-#Create text on top
-text = tk.Label(secondary, text= "How many digits ?")
+
+def close_window():
+    window.destroy()
 
 #create the 3 digits button
-button_3 = tk.Button(secondary, text="3 digits", command=digit_3_pressed)
-button_3.pack()
+button_3 = ttk.Button(master= digits_frame, text="3 digits", command=digit_3_pressed)
+button_3.pack(side= "left", padx = 10)
 
 #Create the 4 digits button
-button_4 = tk.Button(secondary, text="4 digits", command=digit_4_pressed)
-button_4.pack()
+button_4 = ttk.Button(master = digits_frame, text="4 digits", command=digit_4_pressed)
+button_4.pack(side= "left", padx= 10)
 
 #Create the 5 digits button
-button_5 = tk.Button(secondary, text="5 digits", command=digit_5_pressed)
-button_5.pack()
+button_5 = ttk.Button(master = digits_frame, text="5 digits", command=digit_5_pressed)
+button_5.pack(side= "left", padx= 10)
 
-secondary.mainloop()
+#Create the close button
+close_button = ttk.Button(master= window, text = "Close", command=close_window)
+close_button.pack(pady= 10)
+
+# Start the tkinter event loop
+window.mainloop()
 
 # Check the value of enter_variable
 print("enter_variable is:", enter_variable)
